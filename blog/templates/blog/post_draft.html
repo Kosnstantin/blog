@@ -1,0 +1,26 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}
+Post list
+{% endblock %}
+
+{% block content %}
+
+<h1>My task</h1>
+<a class="create-btn" style="margin-left: 20px" href="{% url 'post_new' %}">
+    <button>Create</button>
+</a>
+<a class="create-btn" style="margin-left: 20px" href="{% url 'post_list' %}">
+    <button>Filtered posts</button>
+</a>
+<div>{% for post in items %}</div>
+<div style="margin: 20px">
+    <div>
+        <a href="{% url 'post_detail' post_pk=post.pk %}">
+            {{ post.title }}
+        </a>
+    </div>
+    <div>{{ post.created_date }}</div>
+</div>
+{% endfor %}
+{% endblock %}

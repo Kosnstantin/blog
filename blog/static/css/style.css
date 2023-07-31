@@ -1,0 +1,18 @@
+h1 {
+    text-align: center;
+    color: black;
+    justify-content: center;
+}
+
+a {
+    text-decoration: none;
+}
+
+div a {
+    color: red;
+    text-decoration: none;
+}
+
+div a:hover {
+    color: green;
+}

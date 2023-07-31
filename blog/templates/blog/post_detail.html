@@ -1,0 +1,25 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}
+Post details
+{% endblock %}
+
+{% block content %}
+
+<a href="{% url 'post_list' %}">
+    <h1>{{ post.title }}</h1>
+</a>
+<div style="margin: 20px">
+    <div>
+        <div>{{ post.text }}</div>
+    </div>
+</div>
+
+<a href="{% url 'post_edit' post_pk=post.pk %}">
+    <button type="submit">Edit</button>
+</a>
+<a href="{% url 'post_delete' post_pk=post.pk %}">
+    <button type="submit">Delete</button>
+</a>
+
+{% endblock %}
