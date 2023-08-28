@@ -6,21 +6,32 @@ Post list
 
 {% block content %}
 
-<h1>My task</h1>
-<a class="create-btn" style="margin-left: 20px" href="{% url 'post_new' %}">
-    <button>Create</button>
-</a>
-<a class="create-btn" style="margin-left: 20px" href="{% url 'post_list' %}">
-    <button>Filtered posts</button>
-</a>
-<div>{% for post in items %}</div>
-<div style="margin: 20px">
-    <div>
-        <a href="{% url 'post_detail' post_pk=post.pk %}">
-            {{ post.title }}
-        </a>
+<h1 class="mt-3">My task</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <a class="create-btn" style="margin-left: 20px" href="{% url 'post_new' %}">
+                <button class="btn btn-success">Create</button>
+            </a>
+            <a class="create-btn" style="margin-left: 20px" href="{% url 'post_list' %}">
+                <button class="btn btn-success">Filtered posts</button>
+            </a>
+            <div>{% for post in items %}</div>
+            <div style="margin: 20px">
+                <div>
+                    <a href="{% url 'post_detail' post_pk=post.pk %}">
+                        {{ post.title }}
+                    </a>
+                </div>
+                <div>{{ post.created_date }}</div>
+                {% endfor %}
+            </div>
+        </div>
     </div>
-    <div>{{ post.created_date }}</div>
 </div>
-{% endfor %}
+
+
+<div>
+    <h2>Количество постов: {{ counter }}</h2>
+</div>
 {% endblock %}

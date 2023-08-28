@@ -6,12 +6,18 @@ Post edit
 
 {% block content %}
 
-<h2>Edit post</h2>
+<h2 class="justify-content-center d-flex mt-3">Edit post</h2>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-success">Accept</button>
+            </form>
+        </div>
+    </div>
+</div>
 
-<form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Accept</button>
-</form>
 
 {% endblock %}
