@@ -39,32 +39,35 @@ Post details
         </div>
         <div class="col-6">
             <div style="text-align: end;">
-                <h2>Категория</h2>
+                <h2>Category</h2>
                 <div>{{ post.category }}</div>
-
+                <a href="{% url 'feedback' post_pk=post.pk %}">
+                    <button type="submit" class="mt-5 btn btn-success">Reviews</button>
+                </a>
+                <div>Reviews: {{ count }} </div>
             </div>
         </div>
     </div>
 </div>
 
 <div>
-    <h2>Комментарии</h2>
+    <h2>Comments</h2>
     {% for i in comments %}
     {{ i }} <span style="color: blue;">{{ i.author }}</span> {{ i.publish_date }}
     {% if user.id == i.author.id %}
-
     <a href="{% url 'comment_delete' post_pk=post.pk comment_pk=i.pk %}">
         Delete
     </a><br>
 
     {% endif %}
     {% endfor %}
-    <h4>Комментариев: {{ counter }}</h4>
+    <h4>Comments: {{ counter }}</h4>
 </div>
 <form method="POST">
     {% csrf_token %}
     {{ comment_form.as_p }}
     <button type="submit" class="btn btn-success">Add comment</button>
 </form>
+
 
 {% endblock %}

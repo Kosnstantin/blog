@@ -1,0 +1,25 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}
+Feedback
+{% endblock %}
+
+{% block content %}
+
+<a href="{% url 'post_list' %}">
+    <button class="btn btn-success mt-3 mb-3">Back</button>
+</a><br>
+{% for i in fb %}
+<span style="color: blue;">{{ i.author }}</span><br>
+{{ i.text }}<br>
+{{ i.publish_date }}<br>
+<!-- <div class="div">Raiting: {{ i.rating }}</div> <br> -->
+<div class="div">Raiting: {{ i.rating }}</div> <br>
+{% endfor %}
+<form method="POST">
+    {% csrf_token %}
+    {{ feedback_form.as_p }}
+    <button type="submit" class="btn btn-success mt-3 mb-3">Add review</button>
+</form>
+
+{% endblock %}

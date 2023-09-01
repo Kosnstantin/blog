@@ -1,7 +1,11 @@
 from datetime import datetime
 from django.shortcuts import get_object_or_404, render, redirect
-from blog.models import Post, Comments, Category
-from blog.forms import PostForm, CommentForm
+from blog.models import Post, Comments, Category, Feedback
+from blog.forms import (
+    PostForm,
+    CommentForm,
+    FeedbackForm,
+)
 
 
 def post_list(request):
@@ -35,10 +39,20 @@ def published_post(request, post_pk):
     return render(request, "blog/post_detail.html", context)
 
 
+def rating(post_pk):
+    fb = Feedback.objects.filter(post=post_pk)
+    if fb.count() != 0:
+        count = sum([i.rating for i in fb]) / fb.count()
+    else:
+        count = 0
+    return round(count, 1)
+
+
 def post_detail(request, post_pk):
     post = Post.objects.get(pk=post_pk)
     comments = Comments.objects.filter(post=post_pk)
     counter = comments.count()
+    count = rating(post_pk)
     if request.method == "POST":
         comment_form = CommentForm(request.POST)
         if comment_form.is_valid():
@@ -55,6 +69,7 @@ def post_detail(request, post_pk):
         "comments": comments,
         "counter": counter,
         "comment_form": comment_form,
+        "count": count,
     }
     return render(request, "blog/post_detail.html", context)
 
@@ -67,6 +82,7 @@ def post_new(request):
             post = form.save(commit=False)
             post.created_date = datetime.now()
             post.publish_date = datetime.now()
+            post.user = request.user
             post.save()
             return redirect("post_list")
     else:
@@ -104,3 +120,26 @@ def comment_delete(request, comment_pk, post_pk):
     post = Post.objects.get(pk=post_pk)
     comment = get_object_or_404(Comments, pk=comment_pk).delete()
     return redirect("post_detail", post_pk=post.pk)
+
+
+def feedback(request, post_pk):
+    post = Post.objects.get(pk=post_pk)
+    fb = Feedback.objects.filter(post=post_pk)
+    if request.method == "POST":
+        feedback_form = FeedbackForm(request.POST)
+        if feedback_form.is_valid():
+            feedback = feedback_form.save(commit=False)
+            feedback.author = request.user
+            feedback.post = post
+            feedback.published_date = datetime.now()
+            feedback.rating = feedback_form.cleaned_data["rating"]
+            feedback.save()
+            return redirect("post_detail", post_pk=post.pk)
+    else:
+        feedback_form = FeedbackForm()
+    context = {
+        "post": post,
+        "fb": fb,
+        "feedback_form": feedback_form,
+    }
+    return render(request, "blog/feedback.html", context)

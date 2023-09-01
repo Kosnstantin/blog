@@ -10,6 +10,7 @@ from blog.views import (
     published_post,
     categories,
     comment_delete,
+    feedback,
 )
 
 urlpatterns = [
@@ -26,4 +27,5 @@ urlpatterns = [
         name="comment_delete",
     ),
     path("post/new", post_new, name="post_new"),
+    path("post/detail/feedback/<int:post_pk>", feedback, name="feedback"),
 ]
