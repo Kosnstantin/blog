@@ -17,11 +17,12 @@ Post list
                 <button class="btn btn-success">Filtered posts</button>
             </a>
             <div>{% for post in items %}</div>
-            <div style="margin: 20px">
+            <div class="posts" style="margin: 20px">
                 <div>
                     <a href="{% url 'post_detail' post_pk=post.pk %}">
                         {{ post.title }}
                     </a>
+                    by <b>{{ post.author }}</b>
                 </div>
                 <div>{{ post.created_date }}</div>
                 {% endfor %}

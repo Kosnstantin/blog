@@ -33,9 +33,12 @@ def post_draft(request):
 
 def published_post(request, post_pk):
     post = Post.objects.get(pk=post_pk)
+    comments = Comments.objects.filter(post=post_pk)
+    counter = comments.count()
+    count = rating(post_pk)
     post.published = True
     post.save()
-    context = {"post": post}
+    context = {"post": post, "comments": comments, "counter": counter, "count": count}
     return render(request, "blog/post_detail.html", context)
 
 
@@ -84,7 +87,7 @@ def post_new(request):
             post.publish_date = datetime.now()
             post.user = request.user
             post.save()
-            return redirect("post_list")
+            return redirect("post_draft")
     else:
         error = "Iнший метод запиту"
         form = PostForm()

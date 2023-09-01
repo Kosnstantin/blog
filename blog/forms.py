@@ -1,6 +1,5 @@
 from blog.models import Post, Comments, Feedback
 from django.forms import ModelForm, TextInput, Textarea, Select, NumberInput
-from django.contrib.auth.models import User
 
 
 class PostForm(ModelForm):
@@ -23,22 +22,21 @@ class CommentForm(ModelForm):
     class Meta:
         model = Comments
         fields = ["text"]
+        labels = {"text": ""}
         widgets = {
             "text": Textarea(
                 attrs={"class": "form-control", "placeholder": "Enter comment"}
             ),
         }
 
-
 class FeedbackForm(ModelForm):
     class Meta:
         model = Feedback
         fields = ["text", "rating"]
+        labels = {"text": ""}
         widgets = {
             "text": Textarea(
-                attrs={"class": "form-control", "placeholder": "Enter comment"}
+                attrs={"class": "form-control", "placeholder": "Enter review"}
             ),
-            "rating": NumberInput(  # Укажите, что rating - это числовое поле
-                attrs={"class": "form-control", "min": 0, "max": 5}
-            ),
+            "rating": NumberInput(attrs={"class": "form-control", "min": 0, "max": 5}),
         }

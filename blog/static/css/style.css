@@ -20,3 +20,10 @@ div a {
 div a:hover {
     color: green;
 }
+
+@media (max-width: 500px) {
+    .lists-btn {
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+}

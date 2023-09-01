@@ -6,16 +6,23 @@ Feedback
 
 {% block content %}
 
-<a href="{% url 'post_list' %}">
+<a href="{% url 'post_detail' post_pk=post.pk %}">
     <button class="btn btn-success mt-3 mb-3">Back</button>
 </a><br>
+
+
 {% for i in fb %}
-<span style="color: blue;">{{ i.author }}</span><br>
-{{ i.text }}<br>
-{{ i.publish_date }}<br>
-<!-- <div class="div">Raiting: {{ i.rating }}</div> <br> -->
-<div class="div">Raiting: {{ i.rating }}</div> <br>
+{% if i %}
+<div class="posts mb-3">
+    <span style="color: blue;">{{ i.author }}</span><br>
+    {{ i.text }}<br>
+    {{ i.publish_date }}<br>
+    <!-- <div class="div">Raiting: {{ i.rating }}</div> <br> -->
+    <div class="div">Raiting: {{ i.rating }}</div> <br>
+</div>
+{% endif %}
 {% endfor %}
+
 <form method="POST">
     {% csrf_token %}
     {{ feedback_form.as_p }}

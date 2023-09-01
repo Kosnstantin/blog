@@ -17,7 +17,7 @@ Post list
     <div class="row">
         <div class="col-6">
             <div>{% for post in items %}</div>
-            <div class="filtered_published_posts" style="margin: 20px">
+            <div class="posts" style="margin: 20px">
                 <div>
                     <a href="{% url 'post_detail' post_pk=post.pk %}">
                         {{ post.title }}
@@ -34,7 +34,7 @@ Post list
         </div>
         <div class="col-6">
             <div style="text-align: end;">
-                <div class="dropdown">
+                <div class="dropdown mt-3">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         Категории
@@ -53,10 +53,5 @@ Post list
         </div>
     </div>
 </div>
-
-
-
-
-
 
 {% endblock %}

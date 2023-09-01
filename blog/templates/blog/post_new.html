@@ -14,7 +14,7 @@ Create new post
             </a>
             <form method="POST">
                 {% csrf_token %}
-                {{ account.as_p }}
+                {{ form.as_p }}
                 <button type="submit" class="btn btn-success">Create</button>
             </form>
         </div>
